@@ -33,3 +33,6 @@ One very interesting area for possible future research would be to compare these
 ### Link to Final Project Paper
 
 https://docs.google.com/document/d/1742rDyZFzwA4rP2OjLfVtm7kfKRk-yKWfVoSZfMeyYs/edit?usp=sharing
+
+### Link to Instacart Dataset
+https://www.instacart.com/datasets/grocery-shopping-2017
