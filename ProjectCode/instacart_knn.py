@@ -25,7 +25,7 @@ order_products_prior = pd.read_csv('drive/My Drive/Instacart Files/order_product
 # I ran this for KNN = 1, 2, 3, and 4. Results are discussed in the 
 # accuracy rate code block 
 
-KNNclassifier = neighbors.KNeighborsClassifier(n_neighbors=1, weights='uniform')
+KNNclassifier = neighbors.KNeighborsClassifier(n_neighbors=5, weights='uniform')
 
 # I used this to check the shape of the train sample
 
@@ -37,16 +37,32 @@ KNNclassifier = neighbors.KNeighborsClassifier(n_neighbors=1, weights='uniform')
 # The classifier attempts to predict if an item will be reoredred based on it's
 # product id and the order it was placed into the shopping cart
 
-idAndCartOrder = order_products_train[['product_id', 'add_to_cart_order']]
-knnTarget = order_products_train['reordered']
+
+# REVISED - Added aisle_id and department_id
+
+
+# first, join the products and order_products_train set
+combinedProductsOrderDF = pd.merge(order_products_train, products, how='left', 
+                                  left_on='product_id', right_on='product_id')
+
+# print to check the merge
+# print(combinedProductsOrderDF.head())
+
+# Create the new DF with product_id, add_to_cart_order, 
+# aisle_id, and department_id 
+
+idAndCartOrder = combinedProductsOrderDF[['product_id', 'add_to_cart_order',
+                                      'aisle_id', 'department_id']]
+
+knnTarget = combinedProductsOrderDF['reordered']
 
 idAndCartOrder = idAndCartOrder.values
 knnTarget = knnTarget.values
 
 # Check the arrays
 
-#print(idAndCartOrder)
-#print(knnTarget)
+print(idAndCartOrder)
+print(knnTarget)
 
 # Fit the classifier
 KNNclassifier.fit(idAndCartOrder, knnTarget)
@@ -54,7 +70,7 @@ KNNclassifier.fit(idAndCartOrder, knnTarget)
 # I created a single sample to check the classifier. The sample is the value from
 # the first row of the idAndCartOrder array. The classifier correctly returned 1
 
-sample = np.array([49302, 1])
+sample = np.array([49302, 1, 120, 16])
 results = KNNclassifier.predict(sample.reshape(1, -1))
 print(results[0])
 
@@ -81,12 +97,38 @@ print("KNN accuracy rate =", np.sum(predictions == knnTarget) / len(knnTarget))
 # I only tested for KNN = 1; the result was 0.567 accuracy rate 
 
 
-TestidAndCartOrder = order_products_prior[['product_id', 'add_to_cart_order']]
-TestknnTarget = order_products_prior['reordered']
+TestCombinedProductsOrderDF = pd.merge(order_products_prior, products, how='left', 
+                                  left_on='product_id', right_on='product_id')
+
+TestKNNTarget = TestCombinedProductsOrderDF['reordered']
+
+# print to check the merge
+# print(combinedProductsOrderDF.head())
+
+# Create the new DF with product_id, add_to_cart_order, 
+# aisle_id, and department_id 
+
+
+
+
+
+TestidAndCartOrder = TestCombinedProductsOrderDF[['product_id', 'add_to_cart_order',
+                                              'aisle_id', 'department_id']]
+
+TestKNNTarget = TestCombinedProductsOrderDF['reordered']
+
+# TestidAndCartOrder = TestidAndCartOrder.values
+# TestKNNTarget = TestKNNTarget.values
+
+# TestPredictions = KNNclassifier.predict(TestidAndCartOrder)
+# np.sum(TestPredictions == TestKNNTarget) / len(TestKNNTarget)
+
+
+# TestidAndCartOrder = order_products_prior[['product_id', 'add_to_cart_order']]
+# TestknnTarget = order_products_prior['reordered']
 
 TestidAndCartOrder = TestidAndCartOrder.values
-TestknnTarget = TestknnTarget.values
+TestKNNTarget = TestKNNTarget.values
 
 TestPredictions = KNNclassifier.predict(TestidAndCartOrder)
-np.sum(TestPredictions == TestknnTarget) / len(TestknnTarget)
-
+np.sum(TestPredictions == TestKNNTarget) / len(TestKNNTarget)
