@@ -26,13 +26,5 @@ We used a variety of methods in our attempts to answer these questions, includin
 Ideally, our research could be used to help companies determine how best to target and advertise to customers, what products to stock in the highest quantity and possibly determine where the market appears to be untapped. 
 One very interesting area for possible future research would be to compare these findings to similar measures for standard grocery stores (purchased from in person) to determine what, if any, differences are seen when grocery purchases are provided through a digital, delivery service. The potential application for this research are quite broad, and trends that are found could have implications or not only Instacart but also any other grocery and food delivery service, as well as any companies selling products through these services.
 
-
-### Link to Video Demonstration
- - 
-
-### Link to Final Project Paper
-
-https://docs.google.com/document/d/1742rDyZFzwA4rP2OjLfVtm7kfKRk-yKWfVoSZfMeyYs/edit?usp=sharing
-
 ### Link to Instacart Dataset
 https://www.instacart.com/datasets/grocery-shopping-2017
